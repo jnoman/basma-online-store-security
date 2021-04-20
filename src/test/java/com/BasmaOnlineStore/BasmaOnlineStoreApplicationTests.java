@@ -20,7 +20,7 @@ class BasmaOnlineStoreApplicationTests {
 
 	@Test
 	void saveUserTest() {
-		utilisateurRepository.save(new Utilisateur(null, "mohamed el mehdi", "choukri", "choukri@gmail.com",  "aaaaaaaa",new ArrayList<>()));
+		utilisateurRepository.save(new Utilisateur(null, "mohamed el mehdi", "choukri", "choukri@gmail.com",  "aaaaaaaa", true, new ArrayList<>()));
 		assertThat(utilisateurRepository.findByUsername("choukri@gmail.com")).isNotNull();
 	}
 	

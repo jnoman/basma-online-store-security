@@ -24,11 +24,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Utilisateur user = accountService.loadUserByUsername(username);
 		if(user == null) throw new RuntimeException("utilisateur invalide");
+		if(user.isActive() != true) throw new RuntimeException("account disable");
 		Collection<GrantedAuthority> authorities= new ArrayList<>();
 		user.getRoles().forEach(r->{
             authorities.add(new SimpleGrantedAuthority(r.getName()));
         });
 		return new User(user.getUsername(), user.getPassword(), authorities);
 	}
+	
+
 
 }

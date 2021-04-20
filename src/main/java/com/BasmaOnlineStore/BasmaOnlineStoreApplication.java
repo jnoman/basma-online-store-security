@@ -36,9 +36,9 @@ public class BasmaOnlineStoreApplication {
 //			Role r1 = accountService.saveRole(new Role(null, "ADMIN"));
 //			accountService.saveRole(new Role(null, "USER"));
 //			Utilisateur admin = accountService.saveUser(new Utilisateur(null, "admin", "admin", "admin@gmail.com", 
-//					"aaaaaaaa",new ArrayList<>()));
+//					"aaaaaaaa", true,new ArrayList<>()));
 //			accountService.saveUser(new Utilisateur(null, "jamal eddine", "noman", "jamalnoman62@gmail.com", 
-//					"aaaaaaaa",new ArrayList<>()));
+//					"aaaaaaaa", false,new ArrayList<>()));
 //			accountService.addRoleToUser(admin, r1);
 		};
 	}
