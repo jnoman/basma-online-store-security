@@ -20,27 +20,27 @@ class BasmaOnlineStoreApplicationTests {
 
 	@Test
 	void saveUserTest() {
-		utilisateurRepository.save(new Utilisateur(null, "mohamed el mehdi", "choukri", "choukri@gmail.com",  "aaaaaaaa", true, new ArrayList<>()));
+		utilisateurRepository.save(new Utilisateur(null, "mohamed el mehdi", "choukri", "choukrimed", "choukri@gmail.com",  "aaaaaaaa", true, new ArrayList<>()));
 		assertThat(utilisateurRepository.findByUsername("choukri@gmail.com")).isNotNull();
 	}
 	
 	@Test
 	void updateUserTest() {
-		Utilisateur user = utilisateurRepository.findByUsername("choukri@gmail.com");
+		Utilisateur user = utilisateurRepository.findByUsername("choukrimed");
 		if(user!=null) {
 			user.setFirstName("mohamed");
 			utilisateurRepository.save(user);
-			Utilisateur user1 = utilisateurRepository.findByUsername("choukri@gmail.com");
+			Utilisateur user1 = utilisateurRepository.findByUsername("choukrimed");
 			assertThat("mohamed").isEqualTo(user1.getFirstName());
 		}
 	}
 	
 	@Test
 	void deleteUserTest() {
-		Utilisateur user = utilisateurRepository.findByUsername("choukri@gmail.com");
+		Utilisateur user = utilisateurRepository.findByUsername("choukrimed");
 		if(user!=null) {
 			utilisateurRepository.delete(user);
-			assertThat(utilisateurRepository.findByUsername("choukri@gmail.com")).isNull();
+			assertThat(utilisateurRepository.findByUsername("choukrimed")).isNull();
 		}
 	}
 	

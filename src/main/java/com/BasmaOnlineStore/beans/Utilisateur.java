@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 
@@ -35,9 +36,14 @@ public class Utilisateur {
 	@Column(unique = true)
 	@NotNull
     private String username;
+	@Email
+	@Column(unique = true)
+	@NotNull
+    private String email;
 	@NotNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+	@NotNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private boolean active;
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -2,6 +2,8 @@ package com.BasmaOnlineStore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,4 +23,5 @@ public class UserController {
 	public Utilisateur saveUser(@RequestBody Utilisateur user) {
 		return accountService.saveUser(user);
 	}
+	
 }

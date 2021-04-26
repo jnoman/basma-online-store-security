@@ -1,10 +1,15 @@
 package com.BasmaOnlineStore.controller;
 
 
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +54,43 @@ public class Controller {
 			}
 		} else {
 			return "utilisateur n'exist pas";
+		}
+	}
+	
+
+	@ResponseBody
+	@PatchMapping(value = "/activeUser") 
+	public ResponseEntity<Object> changeactiveUser(@RequestBody Utilisateur user) {
+		if (utilisateurRepository.existsById(user.getId())) {
+			try {
+				Utilisateur user1 = utilisateurRepository.findById(user.getId()).get();
+				user1.setActive(user.isActive());
+				utilisateurRepository.save(user1);
+				String active; 
+				active = (user1.isActive()) ? "activé" : "désactivé";
+				HtmlEmail email = new HtmlEmail();
+
+				email.setHostName("smtp.googlemail.com");
+				email.setSmtpPort(465);
+				email.setAuthenticator(new DefaultAuthenticator("votre email", "votre password"));
+				email.setSSLOnConnect(true);
+
+				email.setFrom("votre email");
+
+				email.setSubject("votre compte basma");
+
+				email.setHtmlMsg("<html><h2>bonjour : " + user1.getFirstName() +" "+ user1.getLastName() + "</h2>"
+						+ "<br/><br/> <p>Votre compte a été " + active + "</p> </html>");
+
+				email.addTo(user1.getEmail());
+				email.send();
+				return new ResponseEntity<>("modification du compte terminée avec succès", HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+			}
+			
+		} else {
+			return new ResponseEntity<>("ID d'utilisateur est invalide", HttpStatus.NOT_FOUND);
 		}
 	}
 }
